@@ -35,17 +35,17 @@ public class RankService {
         if (existingRank.isPresent()) {
             // 기존 Rank 객체가 있으면 업데이트
             rank = existingRank.get();
-            rank.setTotalSales(totalSales);
+            rank.setTotalSales((int) totalSales); // double을 int로 변환하여 설정
         } else {
             // 기존 Rank 객체가 없으면 새로 생성
             rank = new Rank();
             rank.setUserId(userId);
-            rank.setTotalSales(totalSales);
+            rank.setTotalSales((int) totalSales); // double을 int로 변환하여 설정
         }
 
         // 순위 계산: 총 매출 내림차순으로 순위를 매김
         List<Rank> allRanks = rankRepository.findAll();
-        allRanks.sort((r1, r2) -> Double.compare(r2.getTotalSales(), r1.getTotalSales()));  // 내림차순 정렬
+        allRanks.sort((r1, r2) -> Integer.compare(r2.getTotalSales(), r1.getTotalSales()));  // 내림차순 정렬
 
         // 순위 계산 후 저장
         int ranking = allRanks.indexOf(rank) + 1;  // 순위는 1부터 시작
@@ -58,7 +58,7 @@ public class RankService {
     // 순위별로 총 매출 내림차순 정렬해서 반환
     public List<Rank> getRanksOrderedByTotalSales() {
         List<Rank> ranks = rankRepository.findAll();
-        ranks.sort((r1, r2) -> Double.compare(r2.getTotalSales(), r1.getTotalSales()));  // 총 매출 내림차순 정렬
+        ranks.sort((r1, r2) -> Integer.compare(r2.getTotalSales(), r1.getTotalSales()));  // 총 매출 내림차순 정렬
         return ranks;
     }
 }
