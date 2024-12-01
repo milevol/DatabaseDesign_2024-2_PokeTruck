@@ -1,0 +1,16 @@
+/* index.css */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+#root {
+  height: 100%; /* React 앱이 전체 화면을 차지 */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  overflow: hidden; /* 스크롤 제거 */
+}
